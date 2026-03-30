@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LCqpeGf2520=",
+  "dgSpecHash": "QDifW2P993Q=",
   "success": true,
   "projectFilePath": "C:\\Projects\\FileSharePlatform\\FileSharePlatform.csproj",
   "expectedPackageFiles": [
@@ -20,7 +20,6 @@
     "C:\\Users\\oicis\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.5\\microsoft.entityframeworkcore.relational.10.0.5.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\10.0.5\\microsoft.entityframeworkcore.sqlite.10.0.5.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\10.0.5\\microsoft.entityframeworkcore.sqlite.core.10.0.5.nupkg.sha512",
-    "C:\\Users\\oicis\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\10.0.5\\microsoft.entityframeworkcore.tools.10.0.5.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\microsoft.extensions.dependencymodel\\10.0.5\\microsoft.extensions.dependencymodel.10.0.5.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\microsoft.visualstudio.solutionpersistence\\1.0.52\\microsoft.visualstudio.solutionpersistence.1.0.52.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",

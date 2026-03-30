@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using FileSharePlatform.Data;
+using FileSharePlatform.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=database.db"));
