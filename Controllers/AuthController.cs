@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using FileSharePlatform.Services;
-using FileSharePlatform.Models;
 using FileSharePlatform.DTOs;
 
 namespace FileSharePlatform.Controllers
 {
-    public class AuthController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
 
@@ -14,7 +15,7 @@ namespace FileSharePlatform.Controllers
             _authService = authService;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
             var user = _authService.Register(
