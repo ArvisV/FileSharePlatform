@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "DjcwYot0WEs=",
+  "dgSpecHash": "i/GDVmWzwtg=",
   "success": true,
   "projectFilePath": "C:\\Projects\\FileSharePlatform\\FileSharePlatform.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\oicis\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\oicis\\.nuget\\packages\\microsoft.aspnetcore.identity\\2.3.9\\microsoft.aspnetcore.identity.2.3.9.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.11.0\\microsoft.codeanalysis.analyzers.3.11.0.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\microsoft.codeanalysis.common\\5.0.0\\microsoft.codeanalysis.common.5.0.0.nupkg.sha512",
@@ -42,5 +43,18 @@
     "C:\\Users\\oicis\\.nuget\\packages\\system.composition.runtime\\9.0.0\\system.composition.runtime.9.0.0.nupkg.sha512",
     "C:\\Users\\oicis\\.nuget\\packages\\system.composition.typedparts\\9.0.0\\system.composition.typedparts.9.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1510",
+      "level": "Warning",
+      "message": "PackageReference Microsoft.AspNetCore.Identity will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.",
+      "projectPath": "C:\\Projects\\FileSharePlatform\\FileSharePlatform.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Projects\\FileSharePlatform\\FileSharePlatform.csproj",
+      "libraryId": "Microsoft.AspNetCore.Identity",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }
