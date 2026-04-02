@@ -26,5 +26,21 @@ namespace FileSharePlatform.Controllers
 
             return Ok(user);
         }
+
+        [HttpPost("login")]
+        public IActionResult Login(LoginRequest request)
+        {
+            var user = _authService.Login(request.Email, request.Password);
+
+            if (user == null)
+                return Unauthorized("Invalid email or password");
+
+            return Ok(new
+            {
+                user.Id,
+                user.Username,
+                user.Email
+            });
+        }
     }
 }

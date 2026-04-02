@@ -31,5 +31,24 @@ namespace FileSharePlatform.Services
 
             return user;
         }
+
+        public User? Login(string email, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+            if (user == null)
+               return null;
+
+            var result = _passwordHasher.VerifyHashedPassword(
+                user,
+                user.PasswordHash,
+                password
+            );
+
+            if (result == PasswordVerificationResult.Failed)
+                return null;
+
+            return user;
+        }
     }
 }
