@@ -10,6 +10,8 @@ namespace FileSharePlatform.Data
         {
         }
 
+        public DbSet<UserFile> Files { get; set; }
+
         public DbSet<User> Users { get; set; }
     }
 }
