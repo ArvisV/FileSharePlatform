@@ -12,6 +12,13 @@ namespace FileSharePlatform.Services
             _context = context;
         }
 
+        public List<UserFile> GetUserFiles(int userId)
+        {
+            return _context.Files
+                 .Where(f => f.UserId == userId)
+                 .ToList();
+        }
+        
         public async Task<UserFile> SaveFileAsync(
             IFormFile file,
             int userId,

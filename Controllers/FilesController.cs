@@ -39,5 +39,21 @@ namespace FileSharePlatform.Controllers
 
             return Ok(result);
         }
+        
+        [HttpGet]
+        public IActionResult GetUserFiles()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaim == null)
+               return Unauthorized();
+
+            int userId = int.Parse(userIdClaim)
+
+            var files = _fileService.GetUserFiles(userId);
+
+            return Ok(files);
+        }
     }
+
 }
