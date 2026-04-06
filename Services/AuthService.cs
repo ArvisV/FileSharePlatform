@@ -9,10 +9,13 @@ namespace FileSharePlatform.Services
         private readonly AppDbContext _context;
         private readonly PasswordHasher<User>_passwordHasher;
 
-        public AuthService(AppDbContext context)
+        private readonly TokenService _tokenService;
+
+        public AuthService(AppDbContext context, TokenService tokenService)
         {
             _context = context;
             _passwordHasher = new PasswordHasher<User>();
+            _tokenService = tokenService;
         }
 
         public User Register(string username, string email, string password)
@@ -32,7 +35,7 @@ namespace FileSharePlatform.Services
             return user;
         }
 
-        public User? Login(string email, string password)
+        public string? Login(string email, string password)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
@@ -47,8 +50,10 @@ namespace FileSharePlatform.Services
 
             if (result == PasswordVerificationResult.Failed)
                 return null;
+            
+            var token = _tokenService.GenerateToken(user);
 
-            return user;
+            return token;
         }
     }
 }

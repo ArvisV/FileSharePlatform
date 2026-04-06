@@ -6,6 +6,6 @@ namespace FileSharePlatform.Services
     {
         User Register(string username, string email, string password);
 
-        User? Login(string email, string password);
+        string? Login(string email, string password);
     }
 }

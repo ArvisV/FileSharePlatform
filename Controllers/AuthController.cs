@@ -30,16 +30,14 @@ namespace FileSharePlatform.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
-            var user = _authService.Login(request.Email, request.Password);
+            var token = _authService.Login(request.Email, request.Password);
 
-            if (user == null)
+            if (token == null)
                 return Unauthorized("Invalid email or password");
 
             return Ok(new
             {
-                user.Id,
-                user.Username,
-                user.Email
+              token = token
             });
         }
     }
