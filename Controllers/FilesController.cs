@@ -54,6 +54,35 @@ namespace FileSharePlatform.Controllers
 
             return Ok(files);
         }
+
+        [HttpGet("{id}/download")]
+        public IActionResult DownloadFile(int id)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaim == null)
+               return Unauthorized();
+
+            int userId = int.Parse(userIdClaim);
+
+            var file = _fileService.GetFileById(id);
+
+            if (file == null)
+               return NotFound();
+            
+            if (file.UserId != userId)
+               return Forbid();
+            
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
+            var filePath = Path.Combine(uploadsFolder, file.StoredFileName);
+
+            if (!System.IO.File.Exists(filePath))
+               return NotFound("File not found on server");
+            
+            var bytes = System.IO.File.ReadAllBytes(filePath);
+
+            return File(bytes, file.ContentType, file.FileName);
+        }
     }
 
 }

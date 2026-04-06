@@ -18,6 +18,11 @@ namespace FileSharePlatform.Services
                  .Where(f => f.UserId == userId)
                  .ToList();
         }
+
+        public UserFile? GetFileById(int id)
+        {
+            return _context.Files.FirstOrDefault(f => f.Id == id);
+        }
         
         public async Task<UserFile> SaveFileAsync(
             IFormFile file,
