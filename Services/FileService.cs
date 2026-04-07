@@ -53,5 +53,11 @@ namespace FileSharePlatform.Services
 
             return fileEntity;
         }
+
+        public void DeleteFile(UserFile file)
+        {
+            _context.Files.Remove(file);
+            _context.SaveChanges();
+        }
     }
 }

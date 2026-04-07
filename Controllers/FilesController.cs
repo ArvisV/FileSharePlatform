@@ -48,7 +48,7 @@ namespace FileSharePlatform.Controllers
             if (userIdClaim == null)
                return Unauthorized();
 
-            int userId = int.Parse(userIdClaim)
+            int userId = int.Parse(userIdClaim);
 
             var files = _fileService.GetUserFiles(userId);
 
@@ -82,6 +82,35 @@ namespace FileSharePlatform.Controllers
             var bytes = System.IO.File.ReadAllBytes(filePath);
 
             return File(bytes, file.ContentType, file.FileName);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteFile(int id)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaim == null)
+               return Unauthorized();
+
+            int userId = int.Parse(userIdClaim);
+
+            var file = _fileService.GetFileById(id);
+
+            if (file == null)
+               return NotFound();
+
+            if (file.UserId != userId)
+               return Forbid();
+
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
+            var filePath = Path.Combine(uploadsFolder, file.StoredFileName);
+
+            if (System.IO.File.Exists(filePath))
+                System.IO.File.Delete(filePath);
+
+            _fileService.DeleteFile(file);
+
+            return Ok(new { message = "File deleted successfully"});
         }
     }
 
