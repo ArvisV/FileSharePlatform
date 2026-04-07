@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using FileSharePlatform.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using FileSharePlatform.DTOs;
 
 namespace FileSharePlatform.Controllers
 {
@@ -66,7 +67,15 @@ namespace FileSharePlatform.Controllers
 
             var files = _fileService.GetUserFiles(userId);
 
-            return Ok(files);
+            var result = files.Select(file => new FileDto
+            {
+                Id = file.Id,
+                FileName = file.FileName,
+                Size = file.Size,
+                UploadedAt = file.UploadedAt
+            });
+
+            return Ok(result);
         }
 
         [HttpGet("{id}/download")]
