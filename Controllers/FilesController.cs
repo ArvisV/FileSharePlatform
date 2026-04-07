@@ -22,6 +22,20 @@ namespace FileSharePlatform.Controllers
         {
             if (file == null || file.Length == 0)
                return BadRequest("File is empty.");
+
+            //File size 50MB
+            long maxFileSize = 50 * 1024 * 1024;
+
+            if (file.Length > maxFileSize)
+               return BadRequest("File size exceeds 10MB limit");
+
+            //File extensions
+            var allowedExtensions = new[] {".jpg", ".jpeg", ".png", ".pdf", ".txt", ".doc", ".docx"};
+
+            var extensions = Path.GetExtension(file.FileName).ToLower();
+
+            if (!allowedExtensions.Contains(extensions))
+               return BadRequest("File type not allowed");
             
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
