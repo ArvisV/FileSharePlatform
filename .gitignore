@@ -1,11 +1,21 @@
+# ASP.NET
 bin/
 obj/
 .vs/
 *.user
 *.suo
-*.cache
+
+# Logs
 *.log
+*.cache
+
+# Node / React
 node_modules/
+dist/
+
+# Environment variables
 .env
+
+# Uploaded files
 uploads/*
 !uploads/.gitkeep
