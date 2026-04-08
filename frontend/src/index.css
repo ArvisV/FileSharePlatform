@@ -109,3 +109,63 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* MODERN HACKER THEME */
+
+.hacker {
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  min-height: 100vh;
+}
+
+.hacker h1 {
+  color: #22c55e;
+}
+
+/* table */
+
+.hacker table {
+  background: #1e293b;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.hacker thead {
+  background: #111827;
+}
+
+.hacker th {
+  color: #94a3b8;
+}
+
+.hacker td {
+  border-bottom: 1px solid #334155;
+}
+
+.hacker tr:hover {
+  background: #334155;
+}
+
+/* buttons */
+
+.hacker button {
+  background: #22c55e;
+  border: none;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.hacker button:hover {
+  background: #16a34a;
+}
+
+/* input */
+
+.hacker input {
+  background: #111827;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  padding: 6px;
+}
