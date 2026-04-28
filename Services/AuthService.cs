@@ -20,6 +20,12 @@ namespace FileSharePlatform.Services
 
         public User Register(string username, string email, string password)
         {
+            if (_context.Users.Any(u => u.Email == email))
+                throw new Exception("Email already exists");
+
+            if (_context.Users.Any(u => u.Username == username))
+                throw new Exception("Username already exists");
+                
             var user = new User
             {
                 Username = username,

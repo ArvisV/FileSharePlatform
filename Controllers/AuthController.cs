@@ -24,7 +24,12 @@ namespace FileSharePlatform.Controllers
                 request.Password
             );
 
-            return Ok(user);
+            return Ok(new
+            {
+                user.Id,
+                user.Username,
+                user.Email
+            });
         }
 
         [HttpPost("login")]
