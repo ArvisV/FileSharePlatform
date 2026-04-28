@@ -18,18 +18,28 @@ namespace FileSharePlatform.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
-            var user = _authService.Register(
-                request.Username,
-                request.Email,
-                request.Password
-            );
-
-            return Ok(new
+            try
             {
-                user.Id,
-                user.Username,
-                user.Email
-            });
+                var user = _authService.Register(
+                    request.Username,
+                    request.Email,
+                    request.Password
+                );
+
+                return Ok(new
+                {
+                    user.Id,
+                    user.Username,
+                    user.Email
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    message = ex.Message
+                });
+            }
         }
 
         [HttpPost("login")]
