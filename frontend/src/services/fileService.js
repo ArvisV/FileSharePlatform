@@ -23,6 +23,11 @@ export const deleteFile = async (id) => {
   await api.delete(`/files/${id}`);
 };
 
+export const shareFile = async (id) => {
+  const response = await api.post(`/files/${id}/share`);
+  return response.data;
+};
+
 export const downloadFile = async (id) => {
 
   const response = await api.get(`/files/${id}/download`, {

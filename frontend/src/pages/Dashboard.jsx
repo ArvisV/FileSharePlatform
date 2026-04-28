@@ -1,12 +1,15 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { getFiles, uploadFile, deleteFile, downloadFile } from "../services/fileService";
+import { getFiles, uploadFile, deleteFile, downloadFile, shareFile } from "../services/fileService";
 import { ThemeContext } from "../context/ThemeContext";
 import { logout } from "../utils/auth";
 
 function Dashboard() {
 
   const [files, setFiles] = useState([]);
+  const [sharedLink, setSharedLink] = useState("");
+  const [copied, setCopied] = useState(false);
+
   const { toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
@@ -44,6 +47,24 @@ function Dashboard() {
     navigate("/");
   };
 
+  // 🔥 SHARE FUNCTION
+  const handleShare = async (id) => {
+    try {
+      const data = await shareFile(id);
+
+      setSharedLink(data.url);
+      setCopied(false);
+
+      // automātiski kopē
+      await navigator.clipboard.writeText(data.url);
+      setCopied(true);
+
+    } catch (error) {
+      console.error("Share failed", error);
+      alert("Failed to generate share link");
+    }
+  };
+
   return (
     <div style={{
       maxWidth: "900px",
@@ -65,26 +86,14 @@ function Dashboard() {
 
           <button
             onClick={toggleTheme}
-            style={{
-              padding: "6px 12px",
-              fontSize: "12px",
-              cursor: "pointer"
-            }}
+            style={buttonSmall}
           >
             Toggle Theme
           </button>
 
           <button
             onClick={handleLogout}
-            style={{
-              padding: "6px 12px",
-              fontSize: "12px",
-              cursor: "pointer",
-              background: "#333",
-              color: "white",
-              border: "none",
-              borderRadius: "4px"
-            }}
+            style={logoutBtn}
           >
             Logout
           </button>
@@ -97,6 +106,29 @@ function Dashboard() {
       <div style={{ marginBottom: "20px" }}>
         <input type="file" onChange={handleUpload} />
       </div>
+
+      {/* 🔗 SHARE LINK BOX */}
+      {sharedLink && (
+        <div style={shareBox}>
+          <p><strong>Share link:</strong></p>
+
+          <input
+            value={sharedLink}
+            readOnly
+            style={shareInput}
+          />
+
+          <button
+            style={copyBtn}
+            onClick={async () => {
+              await navigator.clipboard.writeText(sharedLink);
+              setCopied(true);
+            }}
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+      )}
 
       {/* FILE TABLE */}
       <table style={{
@@ -147,6 +179,13 @@ function Dashboard() {
                     Delete
                   </button>
 
+                  <button
+                    style={shareBtn}
+                    onClick={() => handleShare(file.id)}
+                  >
+                    Share
+                  </button>
+
                 </td>
 
               </tr>
@@ -161,6 +200,8 @@ function Dashboard() {
     </div>
   );
 }
+
+// 🔹 STYLES
 
 const thStyle = {
   padding: "12px",
@@ -184,12 +225,62 @@ const downloadBtn = {
 };
 
 const deleteBtn = {
+  marginRight: "10px",
   padding: "6px 12px",
   border: "none",
   background: "#f44336",
   color: "white",
   cursor: "pointer",
   borderRadius: "4px"
+};
+
+const shareBtn = {
+  padding: "6px 12px",
+  border: "none",
+  background: "#2196F3",
+  color: "white",
+  cursor: "pointer",
+  borderRadius: "4px"
+};
+
+const logoutBtn = {
+  padding: "6px 12px",
+  fontSize: "12px",
+  cursor: "pointer",
+  background: "#333",
+  color: "white",
+  border: "none",
+  borderRadius: "4px"
+};
+
+const buttonSmall = {
+  padding: "6px 12px",
+  fontSize: "12px",
+  cursor: "pointer"
+};
+
+const shareBox = {
+  marginBottom: "20px",
+  padding: "15px",
+  border: "1px solid #ddd",
+  borderRadius: "6px",
+  background: "#f9f9f9"
+};
+
+const shareInput = {
+  width: "100%",
+  padding: "8px",
+  marginTop: "5px",
+  marginBottom: "10px"
+};
+
+const copyBtn = {
+  padding: "6px 12px",
+  background: "#4CAF50",
+  color: "white",
+  border: "none",
+  borderRadius: "4px",
+  cursor: "pointer"
 };
 
 export default Dashboard;

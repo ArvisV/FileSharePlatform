@@ -15,5 +15,6 @@ namespace FileSharePlatform.Models
         public DateTime UploadedAt { get; set; }
 
         public int UserId { get; set; }
+        public string? ShareToken { get; set; }
     }
 }

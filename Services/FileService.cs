@@ -59,5 +59,18 @@ namespace FileSharePlatform.Services
             _context.Files.Remove(file);
             _context.SaveChanges();
         }
+
+        
+        public void UpdateFile(UserFile file)
+        {
+            _context.Files.Update(file);
+            _context.SaveChanges();
+        }
+
+        
+        public UserFile? GetFileByShareToken(string token)
+        {
+            return _context.Files.FirstOrDefault(f => f.ShareToken == token);
+        }
     }
 }
