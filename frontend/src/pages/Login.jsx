@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
-import { saveToken } from "../utils/auth";
 
 function Login() {
 
@@ -14,22 +13,15 @@ function Login() {
     e.preventDefault();
 
     try {
-
-      const data = await login(email, password);
-
-      saveToken(data.token);
-
+      await login(email, password);
       navigate("/dashboard");
-
     } catch (error) {
-
-      alert("Login failed");
-
+      alert(error.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <div>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
 
       <h1>Login</h1>
 
@@ -40,26 +32,44 @@ function Login() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          style={{ padding: "8px", width: "250px" }}
         />
 
-        <br />
-        <br />
+        <br /><br />
 
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          style={{ padding: "8px", width: "250px" }}
         />
 
-        <br />
-        <br />
+        <br /><br />
 
-        <button type="submit">
+        <button
+          type="submit"
+          style={{
+            padding: "8px 16px",
+            cursor: "pointer"
+          }}
+        >
           Login
         </button>
 
       </form>
+
+      <br />
+
+      <p>
+        Don't have an account?{" "}
+        <span
+          onClick={() => navigate("/register")}
+          style={{ color: "blue", cursor: "pointer" }}
+        >
+          Register here
+        </span>
+      </p>
 
     </div>
   );
