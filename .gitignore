@@ -19,3 +19,4 @@ dist/
 # Uploaded files
 uploads/*
 !uploads/.gitkeep
+database.db
