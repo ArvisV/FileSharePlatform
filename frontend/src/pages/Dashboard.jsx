@@ -1,11 +1,14 @@
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { getFiles, uploadFile, deleteFile, downloadFile } from "../services/fileService";
 import { ThemeContext } from "../context/ThemeContext";
+import { logout } from "../utils/auth";
 
 function Dashboard() {
 
   const [files, setFiles] = useState([]);
   const { toggleTheme } = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   const fetchFiles = async () => {
     const data = await getFiles();
@@ -17,7 +20,6 @@ function Dashboard() {
   }, []);
 
   const handleUpload = async (event) => {
-
     const file = event.target.files[0];
     if (!file) return;
 
@@ -30,7 +32,6 @@ function Dashboard() {
   };
 
   const handleDelete = async (id) => {
-
     const confirmDelete = window.confirm("Delete this file?");
     if (!confirmDelete) return;
 
@@ -38,8 +39,12 @@ function Dashboard() {
     await fetchFiles();
   };
 
-  return (
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
+  return (
     <div style={{
       maxWidth: "900px",
       margin: "40px auto",
@@ -56,25 +61,42 @@ function Dashboard() {
 
         <h1>Your Files</h1>
 
-        <button
-          onClick={toggleTheme}
-          style={{
-            padding: "6px 12px",
-            fontSize: "12px",
-            cursor: "pointer"
-          }}
-        >
-          Toggle Theme
-        </button>
+        <div style={{ display: "flex", gap: "10px" }}>
+
+          <button
+            onClick={toggleTheme}
+            style={{
+              padding: "6px 12px",
+              fontSize: "12px",
+              cursor: "pointer"
+            }}
+          >
+            Toggle Theme
+          </button>
+
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: "6px 12px",
+              fontSize: "12px",
+              cursor: "pointer",
+              background: "#333",
+              color: "white",
+              border: "none",
+              borderRadius: "4px"
+            }}
+          >
+            Logout
+          </button>
+
+        </div>
 
       </div>
-
 
       {/* FILE UPLOAD */}
       <div style={{ marginBottom: "20px" }}>
         <input type="file" onChange={handleUpload} />
       </div>
-
 
       {/* FILE TABLE */}
       <table style={{
@@ -137,7 +159,6 @@ function Dashboard() {
       </table>
 
     </div>
-
   );
 }
 
